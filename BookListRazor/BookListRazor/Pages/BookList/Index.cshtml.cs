@@ -25,6 +25,10 @@ namespace BookListRazor.Pages.BookList
         public IEnumerable<Book> Books { get; set; }
 
 
+        //Value will be available only to the next request, after that it will lose its value
+        [TempData]
+        public string Message { get; set; }
+
         //Not an IActionResult because we are just assigning the books here
         public async Task OnGet()
         {
@@ -41,7 +45,7 @@ namespace BookListRazor.Pages.BookList
             }
             _db.Book.Remove(book);
             await _db.SaveChangesAsync();
-
+            Message = book.Name + " has been Deleted Successfully";
             return RedirectToPage("Index");
         }
     }

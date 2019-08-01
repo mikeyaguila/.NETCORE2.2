@@ -17,6 +17,10 @@ namespace BookListRazor.Pages.BookList
             _db = db;
         }
 
+        //This will persist TempData from the Index because you have already defined it in Index View
+        [TempData]
+        public string Message { get; set; }
+
         [BindProperty]
         public Book Book { get; set; }
 
@@ -34,6 +38,7 @@ namespace BookListRazor.Pages.BookList
 
             _db.Book.Add(Book);
             await _db.SaveChangesAsync();
+            Message = Book.Name + " has been created successfully";
             return RedirectToPage("Index");
         }
     }
